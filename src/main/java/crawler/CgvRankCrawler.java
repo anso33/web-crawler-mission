@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import model.CgvRankInfo;
 import model.MovieRankInfo;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -52,7 +51,7 @@ public class CgvRankCrawler implements IRankCrawler {
 
 
 		while (rank.hasNext()) {
-			cgvRankInfoList.add(new CgvRankInfo(title.next().text(), rank.next().text(), img.next(), age.next().text(), reservationRate.next().text(), openDate.next().text()));
+			cgvRankInfoList.add(new MovieRankInfo(title.next().text(), rank.next().text(), img.next(), age.next().text(), reservationRate.next().text(), openDate.next().text()));
 		}
 	}
 
