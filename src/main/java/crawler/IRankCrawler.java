@@ -9,8 +9,11 @@ public interface IRankCrawler {
 
 	List<MovieRankInfo> rankInfoList = new ArrayList<>();
 
-
 	void getRankInfo() throws IOException;
 
-	List<MovieRankInfo> getRankInfoList();
+	default List<MovieRankInfo> getRankInfoList() {
+		return rankInfoList;
+	}
+
+	String getTitle();
 }

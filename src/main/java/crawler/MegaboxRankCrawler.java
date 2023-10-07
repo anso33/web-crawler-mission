@@ -13,6 +13,7 @@ import org.jsoup.select.Elements;
 public class MegaboxRankCrawler implements IRankCrawler {
 
 	private final String url = "https://www.megabox.co.kr/movie";
+	private final String title = "Megabox-Ranking";
 
 	public MegaboxRankCrawler() {
 	}
@@ -60,7 +61,7 @@ public class MegaboxRankCrawler implements IRankCrawler {
 	}
 
 	@Override
-	public List<MovieRankInfo> getRankInfoList() {
-		return rankInfoList;
+	public String getTitle() {
+		return title;
 	}
 }

@@ -13,6 +13,7 @@ import org.jsoup.select.Elements;
 public class CgvRankCrawler implements IRankCrawler {
 
 	private final String url = "http://www.cgv.co.kr/movies/?lt=1&ft=0";
+	private final String title = "Cgv-Ranking";
 
 	public CgvRankCrawler() {
 	}
@@ -44,7 +45,6 @@ public class CgvRankCrawler implements IRankCrawler {
 			}
 		}
 		Iterator<String> img = imgList.iterator();
-
 		Iterator<Element> age = element.select("div.box-image span.thumb-image").iterator();
 		Iterator<Element> reservationRate = element.select("div.box-contents div.score strong.percent span").iterator();
 		Iterator<Element> openDate = element.select("div.box-contents span.txt-info strong").iterator();
@@ -56,7 +56,7 @@ public class CgvRankCrawler implements IRankCrawler {
 	}
 
 	@Override
-	public List<MovieRankInfo> getRankInfoList() {
-		return rankInfoList;
+	public String getTitle() {
+		return title;
 	}
 }
