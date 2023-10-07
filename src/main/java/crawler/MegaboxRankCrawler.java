@@ -12,10 +12,10 @@ import org.jsoup.select.Elements;
 
 public class MegaboxRankCrawler implements IRankCrawler {
 
-	private String url = "https://www.megabox.co.kr/movie";
-	private List<MovieRankInfo> megaboxRankInfos = new ArrayList<>();
+	private final String url = "https://www.megabox.co.kr/movie";
 
-	public MegaboxRankCrawler() {}
+	public MegaboxRankCrawler() {
+	}
 
 	@Override
 	public void getRankInfo() throws IOException {
@@ -28,7 +28,7 @@ public class MegaboxRankCrawler implements IRankCrawler {
 		}
 
 		Elements element = document.select("div.movie-list ol.list li.no-img");
-		System.out.println(element.toString());
+		System.out.println(element);
 
 		Iterator<Element> rank = element.select("div.movie-list-info p.rank").iterator();
 		Iterator<Element> title = element.select("div.tit-area p.tit").iterator();
@@ -37,9 +37,9 @@ public class MegaboxRankCrawler implements IRankCrawler {
 		for (Element e : element) {
 			for (Element td : e.select("div.movie-list-info")) {
 				String text;
-				if(td.select("img").attr("src").isEmpty()){
+				if (td.select("img").attr("src").isEmpty()) {
 					text = td.text();
-				}else{
+				} else {
 					text = td.select("img").attr("src");
 				}
 				imgList.add(text);
@@ -51,16 +51,16 @@ public class MegaboxRankCrawler implements IRankCrawler {
 		Iterator<Element> openDate = element.select("div.rate-date span.date").iterator();
 
 		while (title.hasNext()) {
-			System.out.println(
-							rank.next().text() + "\t" + title.next().text() + "\t" + img.next() + "\t"
-											+ "\t" + reservationRate.next().text() + "\t" + openDate.next().text());
-			megaboxRankInfos.add(new MovieRankInfo(title.next().text(), rank.next().text(), "img.next().text()", age.next().text(), reservationRate.next().text(), openDate.next().text()));
-
+			//			System.out.println(
+			//							rank.next().text() + "\t" + title.next().text() + "\t" + img.next() + "\t"
+			//											+ "\t" + reservationRate.next().text() + "\t" + openDate.next().text());
+			rankInfoList.add(new MovieRankInfo.Builder(title.next().text(), rank.next().text(), openDate.next().text())
+							.img(img.next()).age(age.next().text()).reservationRate(reservationRate.next().text()).build());
 		}
 	}
 
 	@Override
 	public List<MovieRankInfo> getRankInfoList() {
-		return megaboxRankInfos;
+		return rankInfoList;
 	}
 }
