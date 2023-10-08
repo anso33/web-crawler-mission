@@ -14,9 +14,12 @@ public class BoxOfficeRank {
 	}
 
 	public void menu() throws IOException {
-
-		IRankCrawler rankCrawler = menuSelectCinema();
-		menuSelectResult(rankCrawler);
+		try {
+			IRankCrawler rankCrawler = menuSelectCinema();
+			menuSelectResult(rankCrawler);
+		} catch (RuntimeException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private IRankCrawler menuSelectCinema() throws IOException {
