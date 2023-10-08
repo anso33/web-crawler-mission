@@ -26,10 +26,10 @@ public class BoxOfficeRank {
 		int menu = Integer.parseInt(String.valueOf(br.readLine()));
 		IRankCrawler rankCrawler;
 		if (menu == 1) {
-			rankCrawler = new CgvRankCrawler();
+			rankCrawler = CgvRankCrawler.getInstance();
 			rankCrawler.getRankInfo();
 		} else if (menu == 2) {
-			rankCrawler = new MegaboxRankCrawler();
+			rankCrawler = MegaboxRankCrawler.getInstance();
 			rankCrawler.getRankInfo();
 		} else {
 			System.out.println("잘못 입력하셨습니다.");

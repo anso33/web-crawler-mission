@@ -10,12 +10,18 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+// Sington으로 할지 static으로 할지 고민했으나 https://os94.tistory.com/158 를 참고하여 싱글톤 구현
 public class CgvRankCrawler implements IRankCrawler {
 
+	private static final CgvRankCrawler instance = new CgvRankCrawler();
 	private final String url = "http://www.cgv.co.kr/movies/?lt=1&ft=0";
 	private final String title = "Cgv-Ranking";
 
-	public CgvRankCrawler() {
+	private CgvRankCrawler() {
+	}
+
+	public static CgvRankCrawler getInstance() {
+		return instance;
 	}
 
 	@Override

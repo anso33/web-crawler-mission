@@ -12,10 +12,15 @@ import org.jsoup.select.Elements;
 
 public class MegaboxRankCrawler implements IRankCrawler {
 
+	private static final MegaboxRankCrawler instance = new MegaboxRankCrawler();
 	private final String url = "https://www.megabox.co.kr/movie";
 	private final String title = "Megabox-Ranking";
 
-	public MegaboxRankCrawler() {
+	private MegaboxRankCrawler() {
+	}
+
+	public static MegaboxRankCrawler getInstance() {
+		return instance;
 	}
 
 	@Override
