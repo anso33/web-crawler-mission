@@ -82,7 +82,7 @@ public interface IPdfExporter {
 	//	}
 	void exportPdf(String filename, List<MovieRankInfo> contents) throws FileNotFoundException;
 
-	//	void addTable(List<MovieRankInfo> contents, Document document);
-
-
+	//	void addTable(List<MovieRankInfo> contents, Document document) {
+	//
+	//	} -> private으로 쓸 메서드는 굳이 인터페이스에 넣지 않는 것이 좋은건가? 그렇지만 모든 메서드에서 해당 이름의 메서드를 구현할 것이긴 함.
 }
