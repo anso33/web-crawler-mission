@@ -1,35 +1,28 @@
 package view;
 
-import static com.itextpdf.kernel.font.PdfFontFactory.EmbeddingStrategy.PREFER_EMBEDDED;
-
-import com.itextpdf.io.font.PdfEncodings;
 import com.itextpdf.io.image.ImageData;
 import com.itextpdf.io.image.ImageDataFactory;
-import com.itextpdf.kernel.colors.ColorConstants;
-import com.itextpdf.kernel.font.PdfFont;
-import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Image;
-import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
-import com.itextpdf.layout.properties.TextAlignment;
 import com.itextpdf.layout.properties.UnitValue;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.List;
 import model.MovieRankInfo;
 
 
-public class PdfExporterOfMovieRank {
+public class PdfExporterOfMovieRank extends AbstractPdfExporter implements IPdfExporter {
 
-	public PdfExporterOfMovieRank() {};
+	public PdfExporterOfMovieRank() {
+	}
 
+	@Override
 	public void exportPdf(String filename, List<MovieRankInfo> contents) throws FileNotFoundException {
 		PdfWriter writer = null;
 		try {
@@ -49,24 +42,8 @@ public class PdfExporterOfMovieRank {
 		System.out.println(filename + ".pdf 파일이 생성되었습니다.");
 	}
 
-	private PdfFont createFond(String fontName) {
-		PdfFont font = null;
-		try {
-			font = PdfFontFactory.createFont("NanumGothic.ttf", PdfEncodings.IDENTITY_H, PREFER_EMBEDDED);
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-		return font;
-	}
-
-	private Paragraph addFileTitle(String title, int FontSize) {
-		Paragraph titleParagraph = new Paragraph(title);
-		titleParagraph.setFontSize(FontSize);
-		titleParagraph.setTextAlignment(TextAlignment.CENTER);
-		titleParagraph.setBold();
-		return titleParagraph;
-	}
-
+	//	@Override
+	//	public void addTable(List<MovieRankInfo> contents, Document document) {
 	private void addTable(List<MovieRankInfo> contents, Document document) {
 		Table table = new Table(UnitValue.createPercentArray(new float[]{1, 3, 2, 1, 1, 3}));
 		table.setWidth(UnitValue.createPercentValue(100));
@@ -83,7 +60,7 @@ public class PdfExporterOfMovieRank {
 		table.addHeaderCell(createCell("예매율", true));
 		table.addHeaderCell(createCell("개봉일", true));
 
-		for(MovieRankInfo rankInfo : rankInfoList) {
+		for (MovieRankInfo rankInfo : rankInfoList) {
 			table.addCell(createCell(rankInfo.getRank(), false));
 			table.addCell(createCell(rankInfo.getTitle(), false));
 			try {
@@ -100,17 +77,5 @@ public class PdfExporterOfMovieRank {
 			table.addCell(createCell(rankInfo.getOpenDate(), false));
 		}
 		return table;
-	}
-
-	private Cell createCell(String content, boolean isHeader) {
-		Paragraph paragraph = new Paragraph(content);
-		Cell cell = new Cell().add(paragraph);
-		cell.setPadding(5);
-		if (isHeader) {
-			cell.setBackgroundColor(ColorConstants.LIGHT_GRAY);
-			cell.setFontSize(14);
-			cell.setBold();
-		}
-		return cell;
 	}
 }
