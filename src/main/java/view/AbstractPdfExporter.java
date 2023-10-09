@@ -13,7 +13,9 @@ import java.io.IOException;
 
 public abstract class AbstractPdfExporter implements IPdfExporter {
 
-	protected PdfFont createFond(String fontName) {
+	// 이건 api 공개임
+	// default 로 해야 내 의도대로 됨
+	PdfFont createFond(String fontName) {
 		PdfFont font = null;
 		try {
 			font = PdfFontFactory.createFont(fontName, PdfEncodings.IDENTITY_H, PREFER_EMBEDDED);
